@@ -26,5 +26,16 @@ router.get('/:questionId', async (req, res) => {
     }
 })
 
+// edit individual question
+router.get('/:questionId/edit', async (req, res) => {
+    const questionId = req.params.questionId;
+    const questionData = await questionService.getQuestionData(questionId);
+    
+    res.render('questions/edit', {
+        question: questionData[0].question,
+        answers: questionData[0]
+    });
+})
+
 // export router
 module.exports = router;

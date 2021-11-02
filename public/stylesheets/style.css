@@ -3,9 +3,6 @@ html, body {
   padding: 0;
   margin: 0;
   font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
 }
 
 a {
@@ -16,6 +13,16 @@ a {
 h2 {
   color: #E5B25D;
   margin-top: 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+form input {
+  margin: 10px 0;
 }
 
 /* Navbar */
@@ -81,6 +88,10 @@ th, td {
 .question-container {
   padding: 10px 0;
 }
+
+/* Edit questions page */
+
+
 
 /* View answers page */
 .answers {
