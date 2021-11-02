@@ -1,3 +1,4 @@
+// to get variables from .env file
 require('dotenv').config();
 
 // get client
