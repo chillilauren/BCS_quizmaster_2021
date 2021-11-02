@@ -1,0 +1,17 @@
+<h2>{{question}}</h2>
+{{log "hello" answers}}
+    <ul class="answers">
+        <li>A. {{answers.option_a}}</li>
+        <li>B. {{answers.option_b}}</li>
+        <li>C. {{answers.option_c}}</li>
+        {{#if answers.option_d}}
+            <li>D. {{answers.option_d}}</li>
+        {{/if}}
+        {{#if answers.option_e}}
+            <li>E. {{answers.option_e}}</li>
+        {{/if}}
+        <p>Correct answer is {{answers.correct_answer}}.</p>
+
+    </ul>
+
+    <button onclick="history.back()">Back to questions</button></a>

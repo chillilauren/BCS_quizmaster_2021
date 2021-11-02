@@ -5,6 +5,9 @@ const router = express.Router();
 // get quiz functions
 const quizService = require('../services/quizService')
 
+// get question functions
+const questionService = require('../services/questionService');
+
 // get quizzes page
 router.get('/', async (req, res) => {
     try {
@@ -49,7 +52,7 @@ router.get('/:quizId', async (req, res) => {
         // get quiz id from url params
         const quizId = req.params.quizId;
         const quiz = await quizService.getSingleQuiz(quizId);
-        const questions = await quizService.getQuestions(quizId);
+        const questions = await questionService.getAllQuestions(quizId);
 
         res.render('quizzes/view', {
             title: quiz[0].quiz_title,
