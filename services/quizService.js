@@ -32,17 +32,19 @@ async function getSingleQuiz(quizId) {
     return await db.query(preparedSql);
 }
 
-// // get questions for quiz
-// async function getQuestions(quizId) {
-//     const sql = "SELECT * FROM `questions` WHERE quiz_id = ?";
-//     const inserts = [quizId];
-//     const preparedSql = mysql.format(sql, inserts);
+// delete quiz
+async function deleteQuiz(quizId) {
+    const sql = "DELETE FROM `quizzes` WHERE quiz_id = ?";
+    const inserts = [quizId];
+    const preparedSql = mysql.format(sql, inserts);
 
-//     return await db.query(preparedSql);
-// }
+    return await db.query(preparedSql);
+}
 
 
 // export functions
 module.exports.createQuiz = createQuiz;
 module.exports.getQuizzes = getQuizzes;
 module.exports.getSingleQuiz = getSingleQuiz;
+module.exports.deleteQuiz = deleteQuiz;
+
