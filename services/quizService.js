@@ -14,19 +14,36 @@ async function createQuiz(quiz) {
     const sql = "INSERT INTO `quizzes` (quiz_title, date_created) VALUES (?, ?)";
     const inserts = [quiz.title, currentDateStr];
     const preparedSql = mysql.format(sql, inserts);
-    const result = await db.query(preparedSql);
 
-    console.log("new quiz", result)
+    await db.query(preparedSql);
 }
 
 async function getQuizzes() {
     const sql = "SELECT * FROM `quizzes`";
-    const result = await db.query(sql);
-
-    console.log("quizzes", result)
-
+    return await db.query(sql);
 }
+
+// get single quiz
+async function getSingleQuiz(quizId) {
+    const sql = "SELECT * FROM `quizzes` WHERE quiz_id = ?";
+    const inserts = [quizId];
+    const preparedSql = mysql.format(sql, inserts);
+
+    return await db.query(preparedSql);
+}
+
+// get questions for quiz
+async function getQuestions(quizId) {
+    const sql = "SELECT * FROM `questions` WHERE quiz_id = ?";
+    const inserts = [quizId];
+    const preparedSql = mysql.format(sql, inserts);
+
+    return await db.query(preparedSql);
+}
+
 
 // export functions
 module.exports.createQuiz = createQuiz;
 module.exports.getQuizzes = getQuizzes;
+module.exports.getSingleQuiz = getSingleQuiz;
+module.exports.getQuestions = getQuestions;

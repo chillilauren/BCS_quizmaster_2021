@@ -1,0 +1,16 @@
+<div class="details-container">
+    <h2>{{title}}</h2>
+    <p>Created on: {{date}}</p>
+</div>
+
+{{#each questions}}
+<div class="question-container">
+    <h3>{{this.question_id}}. {{this.question}}</h3>
+    <a href="/questions/{{this.question_id}}"><button>View answers</button></a>
+    <a href="/questions/{{this.question_id}}/edit"><button>Edit</button></a>
+</div>
+
+{{/each}}
+<br>
+<br>
+<a href="/quizzes"><button>Back to quizzes</button></a>

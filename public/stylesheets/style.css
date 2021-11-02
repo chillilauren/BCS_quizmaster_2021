@@ -1,3 +1,4 @@
+/* General styles */
 html, body {
   padding: 0;
   margin: 0;
@@ -9,6 +10,7 @@ a {
   text-decoration: none;
 }
 
+/* Navbar */
 .navbar {
   display: flex;
   align-items: center;
@@ -30,9 +32,40 @@ a {
   margin: 0 20px;
 }
 
+
+/* Main body */
 .main {
   margin: 0 auto;
   padding: 30px;
-  /* background: lightyellow; */
+  background: lightyellow;
   width: 700px;
+}
+
+
+/* View quizzes page */
+thead {
+  text-align: left;
+  font-size: 20px;
+}
+
+th, td {
+  width: 200px;
+  height: 25px;
+}
+
+.quiz-btn {
+  width: 30px;
+  padding: 0 3px;
+}
+
+
+/* View questions page */
+.details-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.question-container {
+  padding: 10px 0;
 }

@@ -1,0 +1,27 @@
+<h2>Quizzes</h2>
+<table>
+    <thead>
+        <th>Title</th>
+        <th>Date created</th>
+    </thead>
+    {{#each quizzes}}
+    <tbody>
+        <tr>
+            <td>{{this.quiz_title}}</td>
+            <td>{{this.date_created}}</td>
+            
+            <td class="quiz-btn">
+                <a href="/quizzes/{{this.quiz_id}}"><button>View</button></a>
+                </td>
+            <td class="quiz-btn">
+                <form action="/quizzes/{{this.quiz_id}}/delete" method="post">
+                    <input type="submit" value="X" />
+                </form>
+            </td>
+        </tr>
+    </tbody>
+
+    {{/each}}
+</table>
+<br>
+<a href="/quizzes/create"><button>Create new quiz</button></a>
