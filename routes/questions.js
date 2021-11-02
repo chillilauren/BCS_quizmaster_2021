@@ -10,8 +10,13 @@ router.get('/:questionId', async (req, res) => {
     try {
         const questionId = req.params.questionId;
         const answers = await questionService.getQuestionData(questionId);
-        console.log("answers", answers);
 
+        // if answers array is empty show error page
+        if (answers.length <= 0) {
+            res.render('error', {
+                message: 'Cannot get answers for this quiz.'
+            });
+        }
         res.render('questions/index', {
             question: answers[0].question,
             answers: answers[0]

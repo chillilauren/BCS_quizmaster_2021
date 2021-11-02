@@ -54,6 +54,12 @@ router.get('/:quizId', async (req, res) => {
         const quiz = await quizService.getSingleQuiz(quizId);
         const questions = await questionService.getAllQuestions(quizId);
 
+        // if questions array is empty show error page
+        if (questions.length <= 0) {
+            res.render('error', {
+                message: 'Cannot get questions for this quiz.'
+            });
+        }
         res.render('quizzes/view', {
             title: quiz[0].quiz_title,
             date: quiz[0].date_created,
@@ -65,6 +71,18 @@ router.get('/:quizId', async (req, res) => {
     } catch(err) {
         console.error(err);
     }
+})
+
+// delete quiz
+router.post('/:quizId/delete', async (req, res) => {
+    try {
+        const quizId = req.params.quizId;
+        await quizService.deleteQuiz(quizId);
+    } catch(err) {
+        console.error(err);
+    }
+    res.redirect('/quizzes');
+
 })
 
 // export router
