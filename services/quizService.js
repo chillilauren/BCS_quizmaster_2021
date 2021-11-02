@@ -6,8 +6,13 @@ const db = require('../db');
 
 // create a quiz
 async function createQuiz(quiz) {
-    const sql = "INSERT INTO `quizzes` (quiz_title) VALUES (?)";
-    const inserts = [quiz.title];
+    // get date added
+    const now = new Date();
+    const currentDateStr = now.toDateString();
+
+    // query
+    const sql = "INSERT INTO `quizzes` (quiz_title, date_created) VALUES (?, ?)";
+    const inserts = [quiz.title, currentDateStr];
     const preparedSql = mysql.format(sql, inserts);
     const result = await db.query(preparedSql);
 

@@ -1,8 +1,38 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+html, body {
+  padding: 0;
+  margin: 0;
+  font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  background: #E5B25D;
+  padding: 20px;
+}
+
+.logo {
+  font-size: 25px;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-item {
+  margin: 0 20px;
+}
+
+.main {
+  margin: 0 auto;
+  padding: 30px;
+  /* background: lightyellow; */
+  width: 700px;
 }
