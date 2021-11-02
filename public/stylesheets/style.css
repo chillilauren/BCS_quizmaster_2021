@@ -3,6 +3,9 @@ html, body {
   padding: 0;
   margin: 0;
   font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
 }
 
 a {
@@ -10,8 +13,14 @@ a {
   text-decoration: none;
 }
 
+h2 {
+  color: #E5B25D;
+  margin-top: 0;
+}
+
 /* Navbar */
 .navbar {
+  width: 100%;
   display: flex;
   align-items: center;
   background: #E5B25D;
@@ -19,7 +28,7 @@ a {
 }
 
 .logo {
-  font-size: 25px;
+  font-size: 30px;
 }
 
 .navbar ul {
@@ -36,21 +45,24 @@ a {
 /* Main body */
 .main {
   margin: 0 auto;
+  margin-top: 60px;
   padding: 30px;
   background: lightyellow;
   width: 700px;
+  border: 2px solid #E5B25D;
 }
 
 
 /* View quizzes page */
 thead {
   text-align: left;
+  color: #E5B25D;
   font-size: 20px;
 }
 
 th, td {
   width: 200px;
-  height: 25px;
+  height: 30px;
 }
 
 .quiz-btn {
@@ -68,4 +80,14 @@ th, td {
 
 .question-container {
   padding: 10px 0;
+}
+
+/* View answers page */
+.answers {
+  list-style: none;
+  padding: 0;
+}
+
+.answers li {
+  margin: 7px 0;
 }
