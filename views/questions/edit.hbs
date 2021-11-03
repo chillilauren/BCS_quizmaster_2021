@@ -1,18 +1,18 @@
 <h2>{{question}}</h2>
+<form action="/questions/{{questionId}}/edit" method="post">
     <ul class="answers">
-        <li>A. <input type="text" value={{answers.option_a}}></li>
-        <li>B. <input type="text" value={{answers.option_b}}></li>
-        <li>C. <input type="text" value={{answers.option_c}}></li>
-        {{#if answers.option_d}}
-            <li>D. <input type="text" value={{answers.option_d}}></li>
-        {{/if}}
-        {{#if answers.option_e}}
-            <li>E. <input type="text" value={{answers.option_e}}></li>
-        {{/if}}
-
-        <p>Correct answer is <input type="text" value={{answers.correct_answer}}>.</p>
+        <li>A. <input type="text" name="opt_a" value="{{answers.option_a}}"></li>
+        <li>B. <input type="text" name="opt_b" value="{{answers.option_b}}"></li>
+        <li>C. <input type="text" name="opt_c" value="{{answers.option_c}}"></li>
+        <li>D. <input type="text" name="opt_d" value="{{answers.option_d}}"></li>
+        <li>E. <input type="text" name="opt_e" value="{{answers.option_e}}"></li>
+        <p>Correct answer is
+            <input type="text" name="correct_answer" value="{{answers.correct_answer}}">
+        </p>
     </ul>
-    <br>
-    <button onclick="history.back()">Back to questions</button></a>
+    <button type="submit">Submit</button>
+</form>
+<br>
+<a href="/quizzes/{{quizId}}"><button>Back to questions</button></a>
 
 
