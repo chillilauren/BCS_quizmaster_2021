@@ -1,9 +1,65 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+// get user functions
+const userService = require('../services/userService');
 
+// get package for cookie token
+const jwt = require('jsonwebtoken');
+
+// view login/home page
+router.get('/', (req, res) => {
+  try {
+    let cookie = res.req.headers.cookie;
+
+    // if cookie doesn't exist then show login page
+    if (!cookie) {
+      return res.render('index')
+    } else if (cookie === 'token=') {
+      return res.render('index')
+    }
+    // otherwise go straight to quizzes page
+    return res.redirect('/quizzes')
+  } catch(err) {
+    console.error(err)
+  }
+})
+
+router.post('/', async (req, res, next) => {
+  try {
+    const user = await userService.validateLogin(req.body);
+
+    if (user == false) {
+      res.render('error', { message: 'Username or password not recognised', error: {title: 'User not recognised', message: ''} });
+      return;
+    }
+    
+    // token contains username and role
+    const token = jwt.sign({ 
+      user: {
+        username: user.username,
+        role: user.role
+      }
+    },
+    process.env.AUTH_SECRET);
+    
+    res.cookie('token', token);
+    res.redirect('/quizzes');
+  } catch(err) {
+    console.error(err);
+  }
+})
+
+// logout
+router.get('/logout', (req, res) => {
+  try {
+    res.cookie('token', '', { expiresIn: '1ms' });
+    res.redirect('/');
+  } catch(err) {
+    console.error(err)
+  }
+})
+
+
+// export router
 module.exports = router;

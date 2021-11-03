@@ -5,6 +5,28 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+const JwtStrategy = require('passport-jwt').Strategy;
+const passport = require('passport');
+const CookieExtractor = require('./security/cookieExtractor');
+
+const opts = {}
+opts.jwtFromRequest = CookieExtractor.cookieExtractor;
+opts.secretOrKey = process.env.AUTH_SECRET;
+
+passport.use(new JwtStrategy(opts, async function(jwt_payload, done) {
+  // add the findUser function to get the details for a user given their username
+  // userService.findUser(jwt_payload['user'].username, function(err, user) {
+  //     if (err) {
+  //         return done(err, null);
+  //     }
+  //     return done(null, user);
+  // });
+  // const user = await userService.findUser(jwt_payload['user'].username);
+
+  // insead of searching for user every time, 
+  return done(null, jwt_payload['user']);
+})); 
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 var quizzes = require('./routes/quizzes');
@@ -25,12 +47,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(passport.initialize());
+
 app.use('/', index);
 app.use('/users', users);
 app.use('/quizzes', quizzes);
 app.use('/questions', questions);
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
