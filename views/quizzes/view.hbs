@@ -6,45 +6,56 @@
 {{#each questions}}
     <div class="question-container">
         <h3>{{this.question_id}}. {{this.question}}</h3>
-        <a href="/questions/{{this.question_id}}"><button>View answers</button></a>
-        <a href="/questions/{{this.question_id}}/edit"><button>Edit</button></a>
+
+        {{!-- only show view answers button if user has view or edit permissions --}}
+        {{#if ../isView}}
+            <a href="/questions/{{this.question_id}}"><button>View answers</button></a>
+        {{/if}}
+
+        {{!-- only show edit button is user has edit permissions --}}
+        {{#if ../isEdit}}
+            <a href="/questions/{{this.question_id}}/edit"><button>Edit</button></a>
+        {{/if}}
     </div>
 {{/each}}
-{{log 'quiz id' quizId}}
-{{!-- only seen if editor --}}
-<form class="add-question" action="/quizzes/{{quizId}}/add" method="post">
-<h2>Add new question</h2>
 
-    <input class="new-question" type="text" name="question" placeholder="Please enter new question">
-    <div class="answers-wrapper">
-        <input class="answer-opts" type="text" name="opt_a" placeholder="Please enter answer option A">
-        <input class="answer-opts" type="text" name="opt_b" placeholder="Please enter answer option B">
-        <input class="answer-opts" type="text" name="opt_c" placeholder="Please enter answer option C">
-        <input class="answer-opts" type="text" name="opt_d" placeholder="Please enter answer option D">
-        <input class="answer-opts" type="text" name="opt_e" placeholder="Please enter answer option E">
-    </div>
+{{!-- Add question form only shows is user has edit permissions --}}
+{{#if isEdit}}
+    <form class="add-question" action="/quizzes/{{quizId}}/add" method="post">
+    <h2>Add new question</h2>
 
-    <br>
-    <label for="correct_answer">Correct answer:</label><br>
-    <div class="answers-wrapper">
-        <label for="A">A</label>
-        <input class="correct-opt" type="radio" name="correct_answer" value="A"><br>
+        <input class="new-question" type="text" name="question" placeholder="Please enter new question">
+        <div class="answers-wrapper">
+            <input class="answer-opts" type="text" name="opt_a" placeholder="Please enter answer option A">
+            <input class="answer-opts" type="text" name="opt_b" placeholder="Please enter answer option B">
+            <input class="answer-opts" type="text" name="opt_c" placeholder="Please enter answer option C">
+            <input class="answer-opts" type="text" name="opt_d" placeholder="Please enter answer option D">
+            <input class="answer-opts" type="text" name="opt_e" placeholder="Please enter answer option E">
+        </div>
 
-        <label for="B">B</label>
-        <input class="correct-opt" type="radio" name="correct_answer" value="B"><br>
+        <br>
+        <label for="correct_answer">Correct answer:</label><br>
+        <div class="answers-wrapper">
+            <label for="A">A</label>
+            <input class="correct-opt" type="radio" name="correct_answer" value="A"><br>
 
-        <label for="C">C</label>
-        <input class="correct-opt" type="radio" name="correct_answer" value="C"><br>
+            <label for="B">B</label>
+            <input class="correct-opt" type="radio" name="correct_answer" value="B"><br>
 
-        <label for="D">D</label>
-        <input class="correct-opt" type="radio" name="correct_answer" value="D"><br>
+            <label for="C">C</label>
+            <input class="correct-opt" type="radio" name="correct_answer" value="C"><br>
 
-        <label for="E">E</label>
-        <input class="correct-opt" type="radio" name="correct_answer" value="E"><br>
-    </div>
-    <br>
-    <button type="submit">Add Question</button>
+            <label for="D">D</label>
+            <input class="correct-opt" type="radio" name="correct_answer" value="D"><br>
 
-</form>
+            <label for="E">E</label>
+            <input class="correct-opt" type="radio" name="correct_answer" value="E"><br>
+        </div>
+        <br>
+        <button type="submit">Add Question</button>
+
+    </form>
+{{/if}}
+<br>
 <br>
 <a href="/quizzes"><button>Back to quizzes</button></a>

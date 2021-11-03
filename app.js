@@ -5,6 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// to get variables from .env file
+require('dotenv').config();
+
+// for login/cookie handling
 const JwtStrategy = require('passport-jwt').Strategy;
 const passport = require('passport');
 const CookieExtractor = require('./security/cookieExtractor');
@@ -31,7 +35,6 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var quizzes = require('./routes/quizzes');
 var questions = require('./routes/questions');
-
 
 var app = express();
 

@@ -13,15 +13,22 @@
             <td class="quiz-btn">
                 <a href="/quizzes/{{this.quiz_id}}"><button>View</button></a>
             </td>
-            <td class="quiz-btn">
-                <form action="/quizzes/{{this.quiz_id}}/delete" method="post">
-                    <input type="submit" value="X" />
-                </form>
-            </td>
+            
+            {{!-- Delete button only shows if user has edit permissions --}}
+            {{#if ../isEdit}}
+                <td class="quiz-btn">
+                    <form action="/quizzes/{{this.quiz_id}}/delete" method="post">
+                        <input type="submit" value="X" />
+                    </form>
+                </td>
+            {{/if}}
         </tr>
     </tbody>
 
     {{/each}}
 </table>
 <br>
-<a href="/quizzes/create"><button>Create new quiz</button></a>
+{{#if isEdit}}
+    <a href="/quizzes/create"><button>Create new quiz</button></a>
+{{/if}}
+{{log 'edit' isEdit}}

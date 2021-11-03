@@ -1,11 +1,15 @@
-var express = require('express');
-var router = express.Router();
+// get router
+const express = require('express');
+const router = express.Router();
 
 // get user functions
 const userService = require('../services/userService');
 
 // get package for cookie token
 const jwt = require('jsonwebtoken');
+
+// to get variables from .env file
+require('dotenv').config();
 
 // view login/home page
 router.get('/', (req, res) => {
