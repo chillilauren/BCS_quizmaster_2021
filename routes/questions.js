@@ -50,7 +50,5 @@ router.post('/:questionId/edit', async (req, res) => {
     res.redirect(`/questions/${questionId}`)
 })
 
-// add new question to quiz
-
 // export router
 module.exports = router;

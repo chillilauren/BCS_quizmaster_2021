@@ -31,7 +31,14 @@ async function getAnswers(questionId) {
 
 async function updateAnswers(answers, questionId) {
     const sql = "UPDATE `questions` SET option_a=?, option_b=?, option_c=?, option_d=?, option_e=?, correct_answer=? WHERE question_id = ?";
-    const inserts = [answers.opt_a, answers.opt_b, answers.opt_c, answers.opt_d, answers.opt_e, answers.correct_answer, questionId
+    const inserts = [
+        answers.opt_a,
+        answers.opt_b,
+        answers.opt_c,
+        answers.opt_d,
+        answers.opt_e,
+        answers.correct_answer,
+        questionId
     ];
     const preparedSql = mysql.format(sql, inserts);
 

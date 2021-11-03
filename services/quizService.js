@@ -32,6 +32,24 @@ async function getSingleQuiz(quizId) {
     return await db.query(preparedSql);
 }
 
+// add question to quiz
+async function addQuestion(quizId, question) {
+    const sql = "INSERT INTO `questions` (question, option_a, option_b, option_c, option_d, option_e, correct_answer, quiz_id) VALUES (?,?,?,?,?,?,?,?) ";
+    const inserts = [
+        question.question,
+        question.opt_a,
+        question.opt_b,
+        question.opt_c,
+        question.opt_d,
+        question.opt_e,
+        question.correct_answer,
+        quizId
+    ];
+    const preparedSql = mysql.format(sql, inserts);
+
+    return await db.query(preparedSql);
+}
+
 // delete quiz
 async function deleteQuiz(quizId) {
     const sql = "DELETE FROM `quizzes` WHERE quiz_id = ?";
@@ -47,4 +65,5 @@ module.exports.createQuiz = createQuiz;
 module.exports.getQuizzes = getQuizzes;
 module.exports.getSingleQuiz = getSingleQuiz;
 module.exports.deleteQuiz = deleteQuiz;
+module.exports.addQuestion = addQuestion;
 

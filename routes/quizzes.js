@@ -63,6 +63,7 @@ router.get('/:quizId', async (req, res) => {
         res.render('quizzes/view', {
             title: quiz[0].quiz_title,
             date: quiz[0].date_created,
+            quizId: quizId,
             // isPlayer: req.user.role === 'player',
             // isViewer: req.user.role === 'viewer' || req.user.role === 'editor',
             // isEditor: req.user.role === 'editor',
@@ -71,6 +72,17 @@ router.get('/:quizId', async (req, res) => {
     } catch(err) {
         console.error(err);
     }
+})
+
+// add new question to quiz
+router.post('/:quizId/add', async (req, res) => {
+    const quizId = req.params.quizId;
+    const newQuestion = req.body;
+    await quizService.addQuestion(quizId, newQuestion);
+    console.log("new question added")
+    // res.redirect('/quizzes');
+
+    res.redirect(`/quizzes/${quizId}`);
 })
 
 // delete quiz
