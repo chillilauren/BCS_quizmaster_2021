@@ -21,9 +21,16 @@ form {
   align-items: flex-start;
 }
 
+form h3 {
+  color: #E5B25D;
+  margin: 5px 0;
+}
+
 form input {
   margin: 10px 0;
+  height: 30px;
 }
+
 
 /* Navbar */
 .navbar {
@@ -77,6 +84,11 @@ th, td {
   padding: 0 3px;
 }
 
+/* Create quiz */
+.new-quiz {
+  width: 300px;
+}
+
 
 /* View questions page */
 .details-container {
@@ -88,6 +100,29 @@ th, td {
 .question-container {
   padding: 10px 0;
 }
+
+.add-question {
+  margin-top: 30px;
+}
+
+.answers-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.new-question {
+  width: 400px;
+}
+
+.answer-opts {
+  width: 250px;
+  margin-right: 15px;
+}
+
+.correct-opt {
+  margin: 0 20px;
+}
+
 
 /* Edit questions page */
 
