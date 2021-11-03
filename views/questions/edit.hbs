@@ -11,6 +11,11 @@
         </p>
     </ul>
     <button type="submit">Submit</button>
+    
+</form>
+<br>
+<form action="/questions/{{this.questionId}}/delete" method="post">
+    <input type="submit" value="Delete question" />
 </form>
 <br>
 <a href="/quizzes/{{quizId}}"><button>Back to questions</button></a>

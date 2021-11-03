@@ -30,24 +30,44 @@ router.get('/:questionId', async (req, res) => {
 
 // edit individual question
 router.get('/:questionId/edit', async (req, res) => {
-    const questionId = req.params.questionId;
-    const question = await questionService.getQuestion(questionId);
-    const answers = await questionService.getAnswers(questionId);
-
-    res.render('questions/edit', {
-        question: question[0].question,
-        questionId: questionId,
-        answers: answers[0],
-        quizId: question[0].quiz_id
-    });
+    try {
+        const questionId = req.params.questionId;
+        const question = await questionService.getQuestion(questionId);
+        const answers = await questionService.getAnswers(questionId);
+    
+        res.render('questions/edit', {
+            question: question[0].question,
+            questionId: questionId,
+            answers: answers[0],
+            quizId: question[0].quiz_id
+        });
+    } catch(err) {
+        console.error(err);
+    }
 })
 
 router.post('/:questionId/edit', async (req, res) => {
-    const answers = req.body;
-    const questionId = req.params.questionId;
-    await questionService.updateAnswers(answers, questionId);
+    try {
+        const answers = req.body;
+        const questionId = req.params.questionId;
+        await questionService.updateAnswers(answers, questionId);
+        res.redirect(`/questions/${questionId}`)
+    } catch(err) {
+        console.error(err);
+    }
+})
 
-    res.redirect(`/questions/${questionId}`)
+// delete individual question
+router.post('/:questionId/delete', async (req, res) => {
+    try {
+        const questionId = req.params.questionId;
+        const question = await questionService.getQuestion(questionId);
+        
+        await questionService.deleteQuestion(questionId);
+        res.redirect(`/quizzes/${question[0].quiz_id}`)
+    } catch(err) {
+        console.error(err);
+    }
 })
 
 // export router

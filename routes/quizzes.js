@@ -23,6 +23,17 @@ router.get('/', async (req, res) => {
     }
 });
 
+// delete quiz
+router.post('/:quizId/delete', async (req, res) => {
+    try {
+        const quizId = req.params.quizId;
+        await quizService.deleteQuiz(quizId);
+    } catch(err) {
+        console.error(err);
+    }
+    res.redirect('/quizzes');
+})
+
 // get create quiz page
 router.get('/create', (req, res) => {
     try {
@@ -76,25 +87,14 @@ router.get('/:quizId', async (req, res) => {
 
 // add new question to quiz
 router.post('/:quizId/add', async (req, res) => {
-    const quizId = req.params.quizId;
-    const newQuestion = req.body;
-    await quizService.addQuestion(quizId, newQuestion);
-    console.log("new question added")
-    // res.redirect('/quizzes');
-
-    res.redirect(`/quizzes/${quizId}`);
-})
-
-// delete quiz
-router.post('/:quizId/delete', async (req, res) => {
     try {
         const quizId = req.params.quizId;
-        await quizService.deleteQuiz(quizId);
+        const newQuestion = req.body;
+        await quizService.addQuestion(quizId, newQuestion);
+        res.redirect(`/quizzes/${quizId}`);
     } catch(err) {
         console.error(err);
     }
-    res.redirect('/quizzes');
-
 })
 
 // export router

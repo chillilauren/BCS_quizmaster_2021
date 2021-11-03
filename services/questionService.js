@@ -21,6 +21,15 @@ async function getQuestion(questionId) {
     return await db.query(preparedSql);
 }
 
+async function deleteQuestion(questionId) {
+    const sql = "DELETE FROM `questions` WHERE question_id = ?";
+    const inserts = [questionId];
+    const preparedSql = mysql.format(sql, inserts);
+    // console.log("deleting", preparedSql);
+
+    return await db.query(preparedSql);
+}
+
 async function getAnswers(questionId) {
     const sql = "SELECT option_a, option_b, option_c, option_d, option_e, correct_answer FROM `questions` WHERE question_id = ?";
     const inserts = [questionId];
@@ -49,4 +58,5 @@ module.exports.getAllQuestions = getAllQuestions;
 module.exports.getQuestion = getQuestion;
 module.exports.getAnswers = getAnswers;
 module.exports.updateAnswers = updateAnswers;
+module.exports.deleteQuestion = deleteQuestion;
 

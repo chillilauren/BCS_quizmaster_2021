@@ -12,23 +12,13 @@ a {
 
 h2 {
   color: #E5B25D;
-  margin-top: 0;
+  margin: 5px 0;
 }
 
 form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-}
-
-form h3 {
-  color: #E5B25D;
-  margin: 5px 0;
-}
-
-form input {
-  margin: 10px 0;
-  height: 30px;
 }
 
 
@@ -112,11 +102,14 @@ th, td {
 
 .new-question {
   width: 400px;
+  margin: 10px 0;
+  height: 30px;
 }
 
 .answer-opts {
   width: 250px;
-  margin-right: 15px;
+  margin: 10px 15px 10px 0;
+  height: 30px;
 }
 
 .correct-opt {
