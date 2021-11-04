@@ -18,6 +18,7 @@ async function createQuiz(quiz) {
     await db.query(preparedSql);
 }
 
+// get all quizzes
 async function getQuizzes() {
     const sql = "SELECT * FROM `quizzes`";
     return await db.query(sql);
@@ -34,7 +35,7 @@ async function getSingleQuiz(quizId) {
 
 // add question to quiz
 async function addQuestion(quizId, question) {
-    const sql = "INSERT INTO `questions` (question, option_a, option_b, option_c, option_d, option_e, correct_answer, quiz_id) VALUES (?,?,?,?,?,?,?,?) ";
+    const sql = "INSERT INTO `questions` (question, option_a, option_b, option_c, option_d, option_e, correct_answer, quiz_id, order_no) VALUES (?,?,?,?,?,?,?,?,?) ";
     const inserts = [
         question.question,
         question.opt_a,
@@ -43,7 +44,8 @@ async function addQuestion(quizId, question) {
         question.opt_d,
         question.opt_e,
         question.correct_answer,
-        quizId
+        quizId,
+        question.order_no
     ];
     const preparedSql = mysql.format(sql, inserts);
 

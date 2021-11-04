@@ -27,13 +27,13 @@ router.get(
             // if can't find quizzes show error page
             if (!quizzes) {
                 res.render('error', {
-                    message: 'Cannot find any quizzes.'
+                    message: 'No quizzes available.'
                 });
             }
             // render list of quizzes
             res.render('quizzes/index', {
                 quizzes: quizzes,
-                isEdit: req.user.role === 'edit',
+                isEdit: req.user.role === 'edit'
             })
         } catch(err) {
             console.error(err)
@@ -104,26 +104,31 @@ router.get(
 
             // query service
             const quiz = await quizService.getSingleQuiz(quizId);
-            const questions = await questionService.getAllQuestions(quizId);
+            let questions = await questionService.getAllQuestions(quizId);
 
-            // if questions array is empty show error page
-            if (questions.length <= 0) {
-                res.render('error', {
-                    message: 'Cannot get questions for this quiz.'
-                });
+            // add in array to determine how many quesitons there are and so
+            // how many numbers the user can choose form when re ordering
+            const orderArr = [1];
+            for (let i = 0; i < questions.length; i++) {
+                orderArr.push(i + 2);
             }
 
-            console.log('user role', req.user.role)
+            // if questions array is empty show error page
+            if (!questions) {
+                res.render('error', {
+                    message: 'No questions available for this quiz.'
+                });
+            }
 
             // otherwise render view quiz page
             res.render('quizzes/view', {
                 title: quiz[0].quiz_title,
                 date: quiz[0].date_created,
                 quizId: quizId,
-                // isRestricted: req.user.role === 'restricted',
                 isView: req.user.role === 'view' || req.user.role === 'edit',
                 isEdit: req.user.role === 'edit',
-                questions: questions
+                questions: questions,
+                order_no: orderArr
             })
         } catch(err) {
             console.error(err);

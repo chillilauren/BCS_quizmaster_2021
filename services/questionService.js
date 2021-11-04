@@ -9,8 +9,10 @@ async function getAllQuestions(quizId) {
     const sql = "SELECT * FROM `questions` WHERE quiz_id = ?";
     const inserts = [quizId];
     const preparedSql = mysql.format(sql, inserts);
+    let questions = await db.query(preparedSql);
 
-    return await db.query(preparedSql);
+    // sorts questions by order no
+    return questions = questions.sort((a,b)=> (a.order_no > b.order_no ? 1 : -1));
 }
 
 async function getQuestion(questionId) {
@@ -25,7 +27,6 @@ async function deleteQuestion(questionId) {
     const sql = "DELETE FROM `questions` WHERE question_id = ?";
     const inserts = [questionId];
     const preparedSql = mysql.format(sql, inserts);
-    // console.log("deleting", preparedSql);
 
     return await db.query(preparedSql);
 }
