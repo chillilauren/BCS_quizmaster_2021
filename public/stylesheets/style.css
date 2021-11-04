@@ -3,6 +3,7 @@ html, body {
   padding: 0;
   margin: 0;
   font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: #352409;
 }
 
 a {
@@ -12,7 +13,8 @@ a {
 
 h2 {
   color: #E5B25D;
-  margin: 5px 0;
+  margin: 10px 0;
+  text-decoration: underline;
 }
 
 form {
@@ -54,6 +56,13 @@ form {
   background: lightyellow;
   width: 700px;
   border: 2px solid #E5B25D;
+}
+
+/* Login page */
+.login input {
+  width: 350px;
+  margin: 10px 0;
+  height: 30px;
 }
 
 
@@ -118,7 +127,11 @@ th, td {
 
 
 /* Edit questions page */
-
+.edit-question {
+  font-size: 20px;
+  height: 35px;
+  width: 450px;
+}
 
 
 /* View answers page */

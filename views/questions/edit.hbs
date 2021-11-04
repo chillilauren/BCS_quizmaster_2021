@@ -1,4 +1,4 @@
-<h2>{{question}}</h2>
+<input class="edit-question" type="text" name="question" value="{{question}}">
 <form action="/questions/{{questionId}}/edit" method="post">
     <ul class="answers">
         <li>A. <input type="text" name="opt_a" value="{{answers.option_a}}"></li>
@@ -17,6 +17,7 @@
 <form action="/questions/{{this.questionId}}/delete" method="post">
     <input type="submit" value="Delete question" />
 </form>
+<br>
 <br>
 <a href="/quizzes/{{quizId}}"><button>Back to questions</button></a>
 
