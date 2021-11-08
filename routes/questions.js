@@ -19,6 +19,7 @@ router.get(
     viewerAccess,
     async (req, res) => {
         try {
+            // define variables and query database
             const questionId = req.params.questionId;
             const question = await questionService.getQuestion(questionId);
             const answers = await questionService.getAnswers(questionId);
@@ -29,6 +30,7 @@ router.get(
                     message: 'Cannot get answers for this quiz.'
                 });
             }
+            // render list of quizzes page with variables
             res.render('questions/index', {
                 question: question[0].question,
                 answers: answers[0],
@@ -47,10 +49,12 @@ router.get(
     editorAccess,
     async (req, res) => {
         try {
+            // define variables and query database
             const questionId = req.params.questionId;
             const question = await questionService.getQuestion(questionId);
             const answers = await questionService.getAnswers(questionId);
         
+            // render edit questions page with variables
             res.render('questions/edit', {
                 question: question[0].question,
                 questionId: questionId,
@@ -69,8 +73,11 @@ router.post(
     editorAccess,
     async (req, res) => {
         try {
+            // define variables
             const answers = req.body;
             const questionId = req.params.questionId;
+
+            // query database and redirect
             await questionService.updateAnswers(answers, questionId);
             res.redirect(`/questions/${questionId}`)
         } catch(err) {
@@ -86,9 +93,11 @@ router.post(
     editorAccess,
     async (req, res) => {
         try {
+            // define variables and query database
             const questionId = req.params.questionId;
             const question = await questionService.getQuestion(questionId);
 
+            // query database and redirect
             await questionService.deleteQuestion(questionId);
             res.redirect(`/quizzes/${question[0].quiz_id}`)
         } catch(err) {

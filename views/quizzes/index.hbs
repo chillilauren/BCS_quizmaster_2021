@@ -18,7 +18,7 @@
             {{!-- Delete button only shows if user has edit permissions --}}
             {{#if ../isEdit}}
                 <td class="quiz-btn">
-                    <form action="/quizzes/{{this.quiz_id}}/delete" method="post">
+                    <form action="/quizzes/{{this.quiz_id}}/delete" method="post"  onclick="return confirm('Are you sure you want to delete this item?')">
                         <input type="submit" value="X" />
                     </form>
                 </td>

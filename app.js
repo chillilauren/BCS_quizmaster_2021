@@ -17,6 +17,8 @@ const opts = {}
 opts.jwtFromRequest = CookieExtractor.cookieExtractor;
 opts.secretOrKey = process.env.AUTH_SECRET;
 
+// get details for user to be used across site
+// not creating extra function to search for user every time we need the role
 passport.use(new JwtStrategy(opts, async function(jwt_payload, done) {
   // add the findUser function to get the details for a user given their username
   // userService.findUser(jwt_payload['user'].username, function(err, user) {

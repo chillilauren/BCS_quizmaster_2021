@@ -21,16 +21,16 @@ router.get(
     auth,
     async (req, res) => {
         try {
-            // query service
+            // define variables and query database
             const quizzes = await quizService.getQuizzes();
 
             // if can't find quizzes show error page
             if (!quizzes) {
                 res.render('error', {
-                    message: 'No quizzes available.'
+                    message: 'No quizzes currently available.'
                 });
             }
-            // render list of quizzes
+            // render list of quizzes page with variables
             res.render('quizzes/index', {
                 quizzes: quizzes,
                 isEdit: req.user.role === 'edit'
@@ -51,7 +51,7 @@ router.post(
             // get quiz id from url params
             const quizId = req.params.quizId;
 
-            // query service
+            // query database
             await quizService.deleteQuiz(quizId);
         } catch(err) {
             console.error(err);
@@ -82,7 +82,7 @@ router.post(
     editorAccess,
     async (req, res) => {
         try {
-            // query service
+            // query database
             await quizService.createQuiz(req.body);
 
             // redirect page on successful post
@@ -102,16 +102,22 @@ router.get(
             // get quiz id from url params
             const quizId = req.params.quizId;
 
-            // query service
+            // query database
             const quiz = await quizService.getSingleQuiz(quizId);
-            let questions = await questionService.getAllQuestions(quizId);
+            const questions = await questionService.getAllQuestions(quizId);
+
+        // ####
+        // BELOW WOULD BE FOR ADJUSTING ORDER OF QUESTIONS, COULDNT GET TO WORK IN TIME
+            // const questionsArr = questions;
 
             // add in array to determine how many quesitons there are and so
             // how many numbers the user can choose form when re ordering
-            const orderArr = [1];
-            for (let i = 0; i < questions.length; i++) {
-                orderArr.push(i + 2);
-            }
+            // const orderArr = [1];
+            // for (let i = 0; i < questions.length; i++) {
+            //     orderArr.push(i + 2);
+            // };
+
+        // ####
 
             // if questions array is empty show error page
             if (!questions) {
@@ -119,8 +125,7 @@ router.get(
                     message: 'No questions available for this quiz.'
                 });
             }
-
-            // otherwise render view quiz page
+            // otherwise render view quiz page with variables
             res.render('quizzes/view', {
                 title: quiz[0].quiz_title,
                 date: quiz[0].date_created,
@@ -128,11 +133,10 @@ router.get(
                 isView: req.user.role === 'view' || req.user.role === 'edit',
                 isEdit: req.user.role === 'edit',
                 questions: questions,
-                order_no: orderArr
+                // order_no: questionsArr
             })
         } catch(err) {
             console.error(err);
-        
         }
     }
 )
@@ -148,7 +152,7 @@ router.post(
             const quizId = req.params.quizId;
             const newQuestion = req.body;
 
-            // query service
+            // query database
             await quizService.addQuestion(quizId, newQuestion);
             res.redirect(`/quizzes/${quizId}`);
         } catch(err) {

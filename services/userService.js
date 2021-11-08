@@ -7,11 +7,14 @@ const db = require('../db');
 // get package to handle passwords
 const bcrypt = require('bcrypt');
 
+// hash password
 async function hashPassword(password) {
     const saltRounds = 10;
     return await bcrypt.hash(password, saltRounds);
 }
 
+// ONLY USED TO CREATE USERS IN DATABASE NOT AVAILABLE TO DO ON FRONTEND
+// create a new user
 async function createUser(user) {
     const sql = 'INSERT INTO `users` (username, password, role) VALUES (?,?,?)';
     const hashedPassword = await hashPassword(user.password);
@@ -21,6 +24,7 @@ async function createUser(user) {
     await db.query(preparedSql);
 }
 
+// validate user login details
 async function validateLogin(user) {
     const sql = 'SELECT * FROM users WHERE username = ?';
     const inserts = [user.username];

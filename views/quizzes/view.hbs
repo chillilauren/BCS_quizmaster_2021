@@ -5,7 +5,7 @@
 
 {{#each questions}}
     <div class="question-container">
-        <h3>{{this.order_no}}. {{this.question}}</h3>
+        <h3>{{this.question_id}}. {{this.question}}</h3>
 
         {{!-- only show view answers button if user has view or edit permissions --}}
         {{#if ../isView}}
@@ -23,12 +23,12 @@
 {{#if isEdit}}
     <form class="add-question" action="/quizzes/{{quizId}}/add" method="post">
         <h2>Add new question</h2>
-        <label for="order_no">Question no:</label>
+        {{!-- <label for="order_no">Question no:</label><br>
         <select name="order_no" id="order_no">
             {{#each order_no}}
                 <option value="{{this}}">{{this}}</option>
             {{/each}}
-        </select>
+        </select> --}}
         <input class="new-question" type="text" name="question" placeholder="Please enter new question">
         <div class="answers-wrapper">
             <input class="answer-opts" type="text" name="opt_a" placeholder="Please enter answer option A">
