@@ -15,6 +15,9 @@ const auth = passport.authenticate('jwt', { session: false });
 // permissions
 const { editorAccess } = require('../security/permissions');
 
+// server-side validation
+const { body, validationResult } = require('express-validator');
+
 // get quizzes page
 router.get(
     '/',
@@ -78,10 +81,21 @@ router.get(
 // post new quiz
 router.post(
     '/create',
+    [
+        body('title')
+        .not().isEmpty().withMessage('Quiz title cannot be empty.')
+        .isLength({ max: 2 }).withMessage('Quiz title cannot be longer than 100 characters.')
+    ],
     auth,
     editorAccess,
     async (req, res) => {
         try {
+            // Finds the validation errors in this request and wraps them in an object with handy functions
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
+
             // query database
             await quizService.createQuiz(req.body);
 
@@ -144,10 +158,29 @@ router.get(
 // add new question to quiz
 router.post(
     '/:quizId/add',
+    [
+        body('question')
+        .not().isEmpty().withMessage('Question cannot be empty.')
+        .isLength({ max: 100 }).withMessage('Question cannot be longer than 100 characters.'),
+        body('opt_a').not().isEmpty().withMessage('Answer option cannot be empty.')
+        .isLength({ max: 45 }).withMessage('Answer option cannot be longer than 45 characters.'),
+        body('opt_b').not().isEmpty().withMessage('Answer option cannot be empty.')
+        .isLength({ max: 45 }).withMessage('Answer option cannot be longer than 45 characters.'),
+        body('opt_c').not().isEmpty().withMessage('Answer option cannot be empty.')
+        .isLength({ max: 45 }).withMessage('Answer option cannot be longer than 45 characters.'),
+        body('opt_d').isLength({ max: 45 }).withMessage('Answer option cannot be longer than 45 characters.'),
+        body('opt_e').isLength({ max: 45 }).withMessage('Answer option cannot be longer than 45 characters.')
+    ],
     auth,
     editorAccess,
     async (req, res) => {
         try {
+            // Finds the validation errors in this request and wraps them in an object with handy functions
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
+
             // get variables from request
             const quizId = req.params.quizId;
             const newQuestion = req.body;

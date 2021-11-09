@@ -12,6 +12,9 @@ const auth = passport.authenticate('jwt', { session: false });
 // permissions
 const { viewerAccess, editorAccess } = require('../security/permissions');
 
+// server-side validation
+const { body, validationResult } = require('express-validator');
+
 // view individual question page
 router.get(
     '/:questionId',
@@ -69,10 +72,32 @@ router.get(
 
 router.post(
     '/:questionId/edit',
+    [
+        body('question')
+        .not().isEmpty().withMessage('Question cannot be empty.')
+        .isLength({ max: 100 }).withMessage('Question cannot be longer than 100 characters.'),
+        body('opt_a').not().isEmpty().withMessage('Answer option cannot be empty.')
+        .isLength({ max: 45 }).withMessage('Answer option cannot be longer than 45 characters.'),
+        body('opt_b').not().isEmpty().withMessage('Answer option cannot be empty.')
+        .isLength({ max: 45 }).withMessage('Answer option cannot be longer than 45 characters.'),
+        body('opt_c').not().isEmpty().withMessage('Answer option cannot be empty.')
+        .isLength({ max: 45 }).withMessage('Answer option cannot be longer than 45 characters.'),
+        body('opt_d').isLength({ max: 45 }).withMessage('Answer option cannot be longer than 45 characters.'),
+        body('opt_e').isLength({ max: 45 }).withMessage('Answer option cannot be longer than 45 characters.'),
+        body('correct_answer')
+        .not().isEmpty().withMessage('Correct answer cannot be empty.')
+        .isLength({ max: 1 }).withMessage('Answer option cannot be longer than 1 character.')
+    ],
     auth,
     editorAccess,
     async (req, res) => {
         try {
+            // Finds the validation errors in this request and wraps them in an object with handy functions
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
+
             // define variables
             const answers = req.body;
             const questionId = req.params.questionId;
