@@ -73,7 +73,7 @@ router.get(
 router.post(
     '/:questionId/edit',
     [
-        body('edit-question')
+        body('question')
         .not().isEmpty().withMessage('Question cannot be empty.')
         .isLength({ max: 100 }).withMessage('Question cannot be longer than 100 characters.'),
         body('opt_a').not().isEmpty().withMessage('Answer option cannot be empty.')
@@ -99,14 +99,11 @@ router.post(
             }
 
             // define variables
-            const answers = req.body;
+            const question = req.body;
             const questionId = req.params.questionId;
 
-            console.log(answers)
-
-
             // query database and redirect
-            await questionService.updateQuestion(answers, questionId);
+            await questionService.updateQuestion(question, questionId);
             res.redirect(`/questions/${questionId}`)
         } catch(err) {
             console.error(err);

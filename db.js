@@ -7,7 +7,7 @@ const mysql = require('mysql2');
 // create connection
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: 'bcs_user',
+    user: 'root',
     password: process.env.DB_PASSWORD,
     database: 'bcs_quizmaster'
 });
