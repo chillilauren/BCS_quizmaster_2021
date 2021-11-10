@@ -47,16 +47,17 @@ async function getAnswers(questionId) {
 }
 
 // update answers for question using question id
-async function updateAnswers(answers, questionId) {
+async function updateQuestion(question, questionId) {
     // build query
-    const sql = "UPDATE `questions` SET option_a=?, option_b=?, option_c=?, option_d=?, option_e=?, correct_answer=? WHERE question_id = ?";
+    const sql = "UPDATE `questions` SET question=?, option_a=?, option_b=?, option_c=?, option_d=?, option_e=?, correct_answer=? WHERE question_id = ?";
     const inserts = [
-        answers.opt_a,
-        answers.opt_b,
-        answers.opt_c,
-        answers.opt_d,
-        answers.opt_e,
-        answers.correct_answer,
+        question.question,
+        question.opt_a,
+        question.opt_b,
+        question.opt_c,
+        question.opt_d,
+        question.opt_e,
+        question.correct_answer,
         questionId
     ];
     const preparedSql = mysql.format(sql, inserts);
@@ -67,6 +68,6 @@ async function updateAnswers(answers, questionId) {
 module.exports.getAllQuestions = getAllQuestions;
 module.exports.getQuestion = getQuestion;
 module.exports.getAnswers = getAnswers;
-module.exports.updateAnswers = updateAnswers;
+module.exports.updateQuestion = updateQuestion;
 module.exports.deleteQuestion = deleteQuestion;
 

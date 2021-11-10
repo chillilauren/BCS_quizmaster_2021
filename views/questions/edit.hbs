@@ -1,5 +1,6 @@
-<input class="edit-question" type="text" name="question" value="{{question}}">
 <form action="/questions/{{questionId}}/edit" method="post">
+    <input class="edit-question" type="text" name="question" value="{{question}}">
+
     <ul class="answers">
         <li>A. <input type="text" name="opt_a" value="{{answers.option_a}}"></li>
         <li>B. <input type="text" name="opt_b" value="{{answers.option_b}}"></li>

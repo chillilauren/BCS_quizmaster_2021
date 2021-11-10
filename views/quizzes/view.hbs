@@ -5,7 +5,7 @@
 
 {{#each questions}}
     <div class="question-container">
-        <h3>{{this.question_id}}. {{this.question}}</h3>
+        <h3>{{this.question}}</h3>
 
         {{!-- only show view answers button if user has view or edit permissions --}}
         {{#if ../isView}}

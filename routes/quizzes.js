@@ -84,7 +84,7 @@ router.post(
     [
         body('title')
         .not().isEmpty().withMessage('Quiz title cannot be empty.')
-        .isLength({ max: 2 }).withMessage('Quiz title cannot be longer than 100 characters.')
+        .isLength({ max: 100 }).withMessage('Quiz title cannot be longer than 100 characters.')
     ],
     auth,
     editorAccess,
@@ -121,6 +121,9 @@ router.get(
             const questions = await questionService.getAllQuestions(quizId);
 
         // ####
+        // ALSO SHOWS APPLICATION OF MATHS HERE, THIS PART WORKED AS I INTENDED BUT NOT WITH
+        // THE REST OF THE CODE
+
         // BELOW WOULD BE FOR ADJUSTING ORDER OF QUESTIONS, COULDNT GET TO WORK IN TIME
             // const questionsArr = questions;
 

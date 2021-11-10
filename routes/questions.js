@@ -73,7 +73,7 @@ router.get(
 router.post(
     '/:questionId/edit',
     [
-        body('question')
+        body('edit-question')
         .not().isEmpty().withMessage('Question cannot be empty.')
         .isLength({ max: 100 }).withMessage('Question cannot be longer than 100 characters.'),
         body('opt_a').not().isEmpty().withMessage('Answer option cannot be empty.')
@@ -86,7 +86,7 @@ router.post(
         body('opt_e').isLength({ max: 45 }).withMessage('Answer option cannot be longer than 45 characters.'),
         body('correct_answer')
         .not().isEmpty().withMessage('Correct answer cannot be empty.')
-        .isLength({ max: 1 }).withMessage('Answer option cannot be longer than 1 character.')
+        .isLength({ max: 1 }).withMessage('Correct answer cannot be longer than 1 character.')
     ],
     auth,
     editorAccess,
@@ -102,8 +102,11 @@ router.post(
             const answers = req.body;
             const questionId = req.params.questionId;
 
+            console.log(answers)
+
+
             // query database and redirect
-            await questionService.updateAnswers(answers, questionId);
+            await questionService.updateQuestion(answers, questionId);
             res.redirect(`/questions/${questionId}`)
         } catch(err) {
             console.error(err);
